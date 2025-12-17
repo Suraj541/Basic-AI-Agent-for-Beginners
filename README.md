@@ -24,3 +24,26 @@ Teach beginners how an AI agent pipeline actually works
 Show message flow, model binding, and execution order
 
 No memory, no tools, no automation tricks
+
+
+{
+Step-by-Step: Setting Up OpenRouter Credentials in n8n
+
+    1.Create an OpenRouter Account
+        Go to https://openrouter.ai/ and sign up for a free account if you don’t have one.
+
+    2.Get Your API Key
+        After logging in, visit your API keys page: https://openrouter.ai/keys.
+        Click on “Create new secret key.” You can give your key a name to remember what it’s for.
+        Copy the API key that is generated.
+
+    3.Add the API Key to n8n
+        In n8n, go to the Credentials section.
+        Click “New Credential” and search for “OpenRouter.”
+        Paste your API key into the “API Key” field.
+        Save the credential.
+
+    4.Use the Credential in Your Workflow
+        When you add an OpenRouter node (like “Chat OpenRouter”) to your workflow, select the credential you just created.
+
+}
