@@ -1,0 +1,127 @@
+{
+  "name": "Build Your First AI Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "messages": {
+          "messageValues": [
+            {
+              "type": "HumanMessagePromptTemplate",
+              "message": "={{ $json.chatInput }}"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        288,
+        -32
+      ],
+      "id": "93e6621e-cd00-4b1a-9d63-1fc63c526466",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/llama-3.1-nemotron-70b-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        256,
+        160
+      ],
+      "id": "855dfbf2-ada7-4662-8b4a-ae35d72bfadc",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "BksfJ38N8dgyOYow",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "includeOtherFields": "={{ $('When chat message received').item.json.chatInput }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        736,
+        -32
+      ],
+      "id": "0d7216bc-78aa-41b3-b865-6ca6962b8166",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "939d521b-cbf8-4588-9290-0dadec05d594",
+      "name": "When chat message received",
+      "webhookId": "3291fdde-b373-4e23-b6d2-d278ae00d87d"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true,
+    "errorWorkflow": "gIWmGWrxLN3xxEVM",
+    "timeSavedPerExecution": 1
+  },
+  "versionId": "c307a640-da2b-424a-8857-146281be89b9",
+  "meta": {
+    "templateId": "6270",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "74449db1cba353661afd1cbcebb515131bd8c829964078aa8f7fda22037593e3"
+  },
+  "id": "gIWmGWrxLN3xxEVM",
+  "tags": []
+}
